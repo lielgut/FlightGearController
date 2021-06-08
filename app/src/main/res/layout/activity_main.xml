@@ -1,21 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
         <variable
-            name="ControllerViewModel"
+            name="viewmodel"
             type="com.example.flightgearcontroller.view_model.ControllerViewModel" />
     </data>
 
-    <SeekBar
-        android:id="@+id/throttleBar"
-        android:progress="@{"
-        android:layout_width="320dp"
-        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity">
+
+        <EditText
+            android:id="@+id/ipInput"
+            android:layout_width="223dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="IP"
+            android:inputType="text" />
+
+        <EditText
+            android:id="@+id/portInput"
+            android:layout_width="223dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Port"
+            android:inputType="number" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="223dp"
+            android:layout_height="wrap_content"
+            android:text="CONNECT"
+            android:onClick="connectClicked"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/throttleLabel"
+            android:layout_width="95dp"
+            android:layout_height="27dp"
+            android:text="@{Float.toString(viewmodel.throttle), default=0}"
+            app:layout_constraintBottom_toTopOf="@+id/rudderBar"
+            app:layout_constraintEnd_toStartOf="@+id/rudderLabel"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <SeekBar
+            android:id="@+id/throttleBar"
+            android:layout_width="329dp"
+            android:layout_height="43dp"
+            android:progress="@={viewmodel.throttle}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.381"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.451" />
+
+        <TextView
+            android:id="@+id/rudderLabel"
+            android:layout_width="78dp"
+            android:layout_height="31dp"
+            android:text="@{Float.toString(viewmodel.rudder), default=0}"
+            app:layout_constraintBottom_toTopOf="@+id/rudderBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <SeekBar
+            android:id="@+id/rudderBar"
+            android:layout_width="311dp"
+            android:layout_height="43dp"
+            android:progress="@={viewmodel.rudder}"
+            app:layout_constraintBottom_toTopOf="@+id/throttleBar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.134" />
+
+        <Button
+            android:text="test"
+            android:onClick="testClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </Button>
+
+        <com.example.flightgearcontroller.Joystick
+            android:id="@+id/joystick"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </com.example.flightgearcontroller.Joystick>
+
+    </LinearLayout>
+
+
 
 </layout>
