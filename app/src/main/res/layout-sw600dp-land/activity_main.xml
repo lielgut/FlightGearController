@@ -78,15 +78,5 @@
                 android:layout_gravity="center"
                 android:progress="@={viewmodel.rudder}" />
         </LinearLayout>
-
-
-
-
-
-
-
     </LinearLayout>
-
-
-
 </layout>
