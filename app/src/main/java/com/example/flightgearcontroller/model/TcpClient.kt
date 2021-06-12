@@ -1,20 +1,25 @@
 package com.example.flightgearcontroller.model
 
-import android.util.Log
 import java.io.PrintWriter
+import java.lang.Exception
 import java.net.Socket
 
-class TcpClient(ip : String, port : Int) {
-    private var fg : Socket = Socket(ip, port);
-    private var out = PrintWriter(fg.getOutputStream(),true);
+class TcpClient {
+    private var fg : Socket? = null;
+    private var out : PrintWriter? = null;
 
-    init {
-        Log.v("TESTT","CREATED TCP CLIENTTTTTTTTTTTTTT");
+    fun connect(ip : String, port : Int) : Boolean {
+        return try {
+            fg = Socket(ip, port);
+            out = PrintWriter(fg!!.getOutputStream(),true);
+            true;
+        } catch (e : Exception) {
+            false;
+        }
     }
 
     fun send(s : String) {
-        Log.v("TEST","SENDINGGGGGGGGGGGGGG $s");
-        out.print(s + "\r\n");
-        out.flush();
+        out?.print(s + "\r\n");
+        out?.flush();
     }
 }

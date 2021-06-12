@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewmodel"
             type="com.example.flightgearcontroller.view_model.ControllerViewModel" />
@@ -11,8 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:gravity="center"
+        android:orientation="horizontal"
         tools:context=".view.MainActivity">
 
         <LinearLayout
@@ -20,6 +21,7 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:orientation="vertical">
+
             <EditText
                 android:id="@+id/ipInput"
                 android:layout_width="223dp"
@@ -27,7 +29,7 @@
                 android:layout_gravity="center"
                 android:hint="@string/ip"
                 android:importantForAutofill="no"
-                android:inputType="text"/>
+                android:inputType="text" />
 
             <EditText
                 android:id="@+id/portInput"
@@ -36,17 +38,24 @@
                 android:layout_gravity="center"
                 android:hint="@string/port"
                 android:importantForAutofill="no"
-                android:inputType="number"/>
+                android:inputType="number" />
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="223dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:importantForAutofill="no"
                 android:onClick="connectClicked"
                 android:text="@string/connect"
-                android:importantForAutofill="no"
                 tools:ignore="UsingOnClickInXml" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text='@{viewmodel.connectionStatus, default="disconnected"}'
+                android:textStyle="bold|italic" />
         </LinearLayout>
 
         <LinearLayout
@@ -80,13 +89,7 @@
         </LinearLayout>
 
 
-
-
-
-
-
     </LinearLayout>
-
 
 
 </layout>

@@ -6,7 +6,6 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.PointF
 import android.util.AttributeSet
-import android.util.Log
 import android.view.MotionEvent
 import android.view.View
 
@@ -45,15 +44,12 @@ class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             return true;
         }
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> Log.v("down","DOWWWN");
             MotionEvent.ACTION_MOVE -> touchMove(event.x, event.y)
-            MotionEvent.ACTION_UP -> Log.v("up","UPPPPP");
         }
         return true;
     }
 
     private fun touchMove(x : Float, y: Float) {
-        Log.v("moving","MOVVINGGGGG ($x,$y)");
         var changed = false;
         if(x >= centerOuter.x - radius/2 && x <= centerOuter.x + radius/2) {
             centerInner.x = x;

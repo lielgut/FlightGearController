@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
-import com.example.flightgearcontroller.model.Model
 import com.example.flightgearcontroller.R
 import com.example.flightgearcontroller.databinding.ActivityMainBinding
 import com.example.flightgearcontroller.view_model.ControllerViewModel
@@ -31,9 +30,8 @@ class MainActivity : AppCompatActivity() {
         ipInput = findViewById(R.id.ipInput);
         portInput = findViewById(R.id.portInput);
 
-        var joystick = findViewById<Joystick>(R.id.joystick);
-        var joystickChange = fun(a: Float, e: Float) : Unit {
-            Log.v("CHANGE","CHANGED JOYSTICK!!!! ($a,$e)");
+        val joystick = findViewById<Joystick>(R.id.joystick);
+        val joystickChange = fun(a: Float, e: Float) : Unit {
             vm.aileron = MutableLiveData<Float>(a);
             vm.elevator = MutableLiveData<Float>(e);
         }
@@ -42,12 +40,12 @@ class MainActivity : AppCompatActivity() {
 
     fun connectClicked(view : View) {
         val ip : String = ipInput.text.toString();
-        val port : Int = portInput.text.toString().toInt();
-        Toast.makeText(applicationContext,"connecting - ip: $ip, port: $port",Toast.LENGTH_SHORT).show();
-        vm.connect(ip,port);
-    }
+        try {
+            val port : Int = portInput.text.toString().toInt();
+            vm.connect(ip, port);
+        } catch(e : java.lang.NumberFormatException) {
+            Toast.makeText(applicationContext,"invalid port number",Toast.LENGTH_SHORT).show();
+        }
 
-    fun testClicked(view : View) {
-        Toast.makeText(applicationContext,"throttle: ${Model.throttle.value}, rudder: ${Model.rudder.value}",Toast.LENGTH_SHORT).show();
     }
 }

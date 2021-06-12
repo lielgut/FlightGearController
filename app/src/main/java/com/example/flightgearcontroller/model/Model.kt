@@ -1,55 +1,57 @@
 package com.example.flightgearcontroller.model
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import java.lang.Exception
 import java.util.concurrent.ForkJoinPool
 
 object Model {
-    var pool : ForkJoinPool = ForkJoinPool(1,ForkJoinPool.defaultForkJoinWorkerThreadFactory, null, true);
-    var throttle : MutableLiveData<Int> = MutableLiveData<Int>(0)
-    var rudder : MutableLiveData<Int> = MutableLiveData<Int>(0)
-    var aileron : MutableLiveData<Float> = MutableLiveData<Float>(0F)
-    var elevator : MutableLiveData<Float> = MutableLiveData<Float>(0F)
-    var client : TcpClient? = null;
+    private var pool: ForkJoinPool =
+        ForkJoinPool(1, ForkJoinPool.defaultForkJoinWorkerThreadFactory, null, true);
+    var throttle: MutableLiveData<Int> = MutableLiveData<Int>(0)
+    var rudder: MutableLiveData<Int> = MutableLiveData<Int>(0)
+    var aileron: MutableLiveData<Float> = MutableLiveData<Float>(0F)
+    var elevator: MutableLiveData<Float> = MutableLiveData<Float>(0F)
+    var connectionStatus : MutableLiveData<String> = MutableLiveData<String>("disconnected")
+    private var client: TcpClient? = null;
 
     init {
         throttle.observeForever {
-            Log.v("THROTTLE","THROTTLE CHANGED TO $it");
-            val floatVal : Float = it.toFloat() / 100F;
+            val floatVal: Float = it.toFloat() / 100F;
             send("set /controls/engines/current-engine/throttle $floatVal");
         }
         rudder.observeForever {
-            Log.v("RUDDER","RUDDER CHANGED TO $it");
-            val floatVal : Float = it.toFloat() / 50F - 1F;
+            val floatVal: Float = it.toFloat() / 50F - 1F;
             send("set /controls/flight/rudder $floatVal");
         }
         aileron.observeForever {
-            Log.v("AILERON","AILERON CHANGED TO $it");
             send("set /controls/flight/aileron $it");
         }
         elevator.observeForever {
-            Log.v("ELEVATOR","ELEVATOR CHANGED TO $it");
             send("set /controls/flight/elevator $it");
         }
     }
 
-    fun connect(ip : String, port : Int) {
+    fun connect(ip: String, port: Int) {
         try {
             pool.execute {
-                client = TcpClient(ip, port);
+                client = TcpClient();
+                if(client!!.connect(ip, port)) {
+                    connectionStatus.postValue("connected");
+                } else {
+                    connectionStatus.postValue("connection failed");
+                }
             };
-        } catch(e : InterruptedException) {
-            Log.v("FAIL","FAILEEEEEDDD TASKKKKK");
+        } catch (e: Exception) {
+            connectionStatus.postValue("connection failed");
         }
     }
 
-    fun send(s : String) {
+    private fun send(s: String) {
         try {
             pool.execute {
                 client?.send(s);
-            };
-        } catch(e : InterruptedException) {
-            Log.v("FAIL","FAILEEEEEDDD TASKKKKK");
+            }
+        } catch (e: InterruptedException) {
         }
     }
 }
