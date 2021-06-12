@@ -1,15 +1,15 @@
-package com.example.flightgearcontroller
+package com.example.flightgearcontroller.view
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.EditText
-import android.widget.SeekBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
+import com.example.flightgearcontroller.model.Model
+import com.example.flightgearcontroller.R
 import com.example.flightgearcontroller.databinding.ActivityMainBinding
 import com.example.flightgearcontroller.view_model.ControllerViewModel
 
@@ -23,7 +23,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val binding: ActivityMainBinding = DataBindingUtil.setContentView(
-            this, R.layout.activity_main)
+            this, R.layout.activity_main
+        )
         binding.viewmodel = vm;
         binding.lifecycleOwner = this;
 

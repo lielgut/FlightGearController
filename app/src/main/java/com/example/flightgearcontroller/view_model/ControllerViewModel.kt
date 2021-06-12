@@ -1,12 +1,7 @@
 package com.example.flightgearcontroller.view_model
-import androidx.databinding.BaseObservable
-import androidx.databinding.Observable
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
-import com.example.flightgearcontroller.Model
-import com.example.flightgearcontroller.TcpClient
+import com.example.flightgearcontroller.model.Model
 
 class ControllerViewModel : ViewModel() {
     var throttle : MutableLiveData<Int>

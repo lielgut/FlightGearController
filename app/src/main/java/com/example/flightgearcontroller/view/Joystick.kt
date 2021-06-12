@@ -1,4 +1,4 @@
-package com.example.flightgearcontroller
+package com.example.flightgearcontroller.view
 
 import android.content.Context
 import android.graphics.Canvas
@@ -14,13 +14,13 @@ class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
 
     lateinit var onChange : (Float, Float) -> Unit;
     private val paintOuter = Paint().apply {
-        style = Paint.Style.STROKE;
-        color = Color.parseColor("#000000");
+        style = Paint.Style.FILL;
+        color = Color.parseColor("#eee3ff");
         isAntiAlias = true;
     }
     private val paintInner = Paint().apply {
         style = Paint.Style.FILL;
-        color = Color.parseColor("#000000");
+        color = Color.parseColor("#6200ee");
         isAntiAlias = true;
     }
 
@@ -35,6 +35,7 @@ class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
     }
 
     override fun onDraw(canvas: Canvas) {
+        radius = canvas.width.toFloat()/2.25F;
         canvas.drawCircle(centerOuter.x,centerOuter.y,radius,paintOuter);
         canvas.drawCircle(centerInner.x,centerInner.y,radius/2,paintInner);
     }

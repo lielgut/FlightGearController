@@ -1,4 +1,4 @@
-package com.example.flightgearcontroller
+package com.example.flightgearcontroller.model
 
 import android.util.Log
 import java.io.PrintWriter

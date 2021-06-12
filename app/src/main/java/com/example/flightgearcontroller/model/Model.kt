@@ -1,11 +1,7 @@
-package com.example.flightgearcontroller
+package com.example.flightgearcontroller.model
 
 import android.util.Log
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import com.google.android.material.internal.ContextUtils.getActivity
 import java.util.concurrent.ForkJoinPool
 
 object Model {
