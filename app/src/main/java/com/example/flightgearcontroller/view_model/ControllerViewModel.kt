@@ -5,29 +5,25 @@ import androidx.lifecycle.ViewModel
 import com.example.flightgearcontroller.model.Model
 
 class ControllerViewModel : ViewModel() {
-    var throttle: MutableLiveData<Int>
-        get() = Model.throttle;
-        set(value) {
-            Model.throttle.value = value.value;
-        }
+    var throttle: MutableLiveData<Int> = MutableLiveData(0);
+    var rudder: MutableLiveData<Int> = MutableLiveData(0);
+    var aileron: MutableLiveData<Float> = MutableLiveData(0F);
+    var elevator: MutableLiveData<Float> = MutableLiveData(0F);
 
-    var rudder: MutableLiveData<Int>
-        get() = Model.rudder;
-        set(value) {
-            Model.rudder.value = value.value;
+    init {
+        throttle.observeForever {
+            Model.sendThrottle(it);
         }
-
-    var aileron: MutableLiveData<Float>
-        get() = Model.aileron;
-        set(value) {
-            Model.aileron.value = value.value;
+        rudder.observeForever {
+            Model.sendRudder(it);
         }
-
-    var elevator: MutableLiveData<Float>
-        get() = Model.elevator;
-        set(value) {
-            Model.elevator.value = value.value;
+        aileron.observeForever {
+            Model.sendAileron(it);
         }
+        elevator.observeForever {
+            Model.sendElevator(it);
+        }
+    }
 
     var connectionStatus: MutableLiveData<String>
         get() = Model.connectionStatus;

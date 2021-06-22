@@ -31,11 +31,10 @@ class MainActivity : AppCompatActivity() {
         portInput = findViewById(R.id.portInput);
 
         val joystick = findViewById<Joystick>(R.id.joystick);
-        val joystickChange = fun(a: Float, e: Float) : Unit {
-            vm.aileron = MutableLiveData<Float>(a);
-            vm.elevator = MutableLiveData<Float>(e);
+        joystick.onChange = fun(a: Float, e: Float) {
+            vm.aileron.value = a;
+            vm.elevator.value = e;
         }
-        joystick.onChange = joystickChange;
     }
 
     fun connectClicked(view : View) {
