@@ -32,7 +32,7 @@ class ControllerViewModel : ViewModel() {
         }
 
     fun connect(ip: String, port: Int) {
-        Model.connect(ip, port);
+        Model.connectAsync(ip, port);
     }
 
 

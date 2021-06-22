@@ -5,20 +5,20 @@ import java.lang.Exception
 import java.net.Socket
 
 class TcpClient {
-    private var fg : Socket? = null;
-    private var out : PrintWriter? = null;
+    private var fg: Socket? = null;
+    private var out: PrintWriter? = null;
 
-    fun connect(ip : String, port : Int) : Boolean {
+    fun connect(ip: String, port: Int): Boolean {
         return try {
             fg = Socket(ip, port);
-            out = PrintWriter(fg!!.getOutputStream(),true);
+            out = PrintWriter(fg!!.getOutputStream(), true);
             true;
-        } catch (e : Exception) {
+        } catch (e: Exception) {
             false;
         }
     }
 
-    fun send(s : String) {
+    fun send(s: String) {
         out?.print(s + "\r\n");
         out?.flush();
     }

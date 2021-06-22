@@ -12,23 +12,23 @@ object Model {
 
     fun sendThrottle(value : Int) {
         val floatVal: Float = value.toFloat() / 100F;
-        send("set /controls/engines/current-engine/throttle $floatVal");
+        sendAsync("set /controls/engines/current-engine/throttle $floatVal");
     }
 
     fun sendRudder(value : Int) {
         val floatVal: Float = value.toFloat() / 50F - 1F;
-        send("set /controls/flight/rudder $floatVal");
+        sendAsync("set /controls/flight/rudder $floatVal");
     }
 
     fun sendAileron(value : Float) {
-        send("set /controls/flight/aileron $value");
+        sendAsync("set /controls/flight/aileron $value");
     }
 
     fun sendElevator(value : Float) {
-        send("set /controls/flight/elevator $value");
+        sendAsync("set /controls/flight/elevator $value");
     }
 
-    fun connect(ip: String, port: Int) {
+    fun connectAsync(ip: String, port: Int) {
         try {
             pool.execute {
                 client = TcpClient();
@@ -43,7 +43,7 @@ object Model {
         }
     }
 
-    private fun send(s: String) {
+    private fun sendAsync(s: String) {
         try {
             pool.execute {
                 client?.send(s);
