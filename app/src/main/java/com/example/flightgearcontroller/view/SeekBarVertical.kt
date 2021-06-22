@@ -1,3 +1,6 @@
+// open-source vertical seekbar by AndroSelva
+// https://github.com/AndroSelva/Vertical-SeekBar-Android/blob/master/sample/src/android/widget/VerticalSeekBar.java
+
 package com.example.flightgearcontroller
 
 import android.content.Context

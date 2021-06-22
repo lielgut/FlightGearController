@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 
+// custom view for joystick
 class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr : Int = 0) : View(context, attrs, defStyleAttr) {
 
     lateinit var onChange : (Float, Float) -> Unit;
@@ -23,9 +24,9 @@ class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         isAntiAlias = true;
     }
 
-    private var radius: Float = 0F;
-    private var centerOuter: PointF = PointF();
-    private var centerInner: PointF = PointF();
+    private var radius: Float = 0F; // circle radius
+    private var centerOuter: PointF = PointF(); // center of the external circle
+    private var centerInner: PointF = PointF(); // center of the inner circle
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         radius = 0.3f * minOf(w, h).toFloat();
@@ -33,24 +34,29 @@ class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
         centerInner = PointF(w/2F, h/2F);
     }
 
+    // draw two circles for the joystick
     override fun onDraw(canvas: Canvas) {
         radius = canvas.width.toFloat()/2.25F;
         canvas.drawCircle(centerOuter.x,centerOuter.y,radius,paintOuter);
         canvas.drawCircle(centerInner.x,centerInner.y,radius/2,paintInner);
     }
 
+    // handling touch events on the joystick
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if(event == null) {
             return true;
         }
         when (event.action) {
-            MotionEvent.ACTION_MOVE -> touchMove(event.x, event.y)
+            // event for when the joystick is being dragged
+            MotionEvent.ACTION_MOVE -> dragJoystick(event.x, event.y)
         }
         return true;
     }
 
-    private fun touchMove(x : Float, y: Float) {
+    // event for dragging the joystick
+    private fun dragJoystick(x : Float, y: Float) {
         var changed = false;
+        // keep inner circle within bounds
         if(x >= centerOuter.x - radius/2 && x <= centerOuter.x + radius/2) {
             centerInner.x = x;
             changed = true;
@@ -59,6 +65,7 @@ class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
             centerInner.y = y;
             changed = true;
         }
+        // convert center of inner circle to value in [-1,1]x[-1,1]
         if(changed) {
             var xPos = (x - centerOuter.x) / radius;
             var yPos = -1  * ((y - centerOuter.y) / radius);
@@ -70,6 +77,7 @@ class Joystick @JvmOverloads constructor(context: Context, attrs: AttributeSet? 
                 yPos = 1F;
             if(yPos < -1F)
                 yPos = -1F;
+            // notify joystick has changed
             onChange(xPos,yPos);
         }
         invalidate();
