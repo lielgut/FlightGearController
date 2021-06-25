@@ -41,5 +41,5 @@ If connection is succesful you should be able to control the plane.
 Use the left seekbar to control the throttle, the bottom seekabr to control the rudder and the joystick to change the elevator and throttle.
 
 
-## Additional information
-- [video](https://youtu.be/g4QkfD5f98s)
+## Video
+- [presentation + demo](https://youtu.be/g4QkfD5f98s)
