@@ -42,4 +42,4 @@ Use the left seekbar to control the throttle, the bottom seekabr to control the 
 
 
 ## Additional information
-- [video]()
+- [video](https://youtu.be/g4QkfD5f98s)
