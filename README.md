@@ -1,6 +1,6 @@
 # FlightGear Remote Control App
 
-![forthebadge](https://img.shields.io/badge/Made%20with-Kotlin-orange)
+![forthebadge](https://img.shields.io/badge/Made%20with-Kotlin-violet)
 
 ## About
 
